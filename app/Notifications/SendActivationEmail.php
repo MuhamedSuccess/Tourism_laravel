@@ -6,6 +6,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
+use App\Mail\TestEmail;
 
 class SendActivationEmail extends Notification implements ShouldQueue
 {
@@ -33,6 +34,9 @@ class SendActivationEmail extends Notification implements ShouldQueue
      *
      * @return array
      */
+
+    
+
     public function via($notifiable)
     {
         return ['mail'];
@@ -47,6 +51,13 @@ class SendActivationEmail extends Notification implements ShouldQueue
      */
     public function toMail($notifiable)
     {
+
+        // $data = ['message' => 'This is a test mail from localhost!'];
+
+        // Mail::to('mohamedadel2015ar@gmail.com')->send(new TestEmail($data));
+    
+
+
         $message = new MailMessage();
         $message->subject(trans('emails.activationSubject'))
             ->greeting(trans('emails.activationGreeting'))
