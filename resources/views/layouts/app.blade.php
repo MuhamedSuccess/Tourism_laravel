@@ -24,6 +24,7 @@
 
         {{-- Styles --}}
         <link href="{{ mix('/css/app.css') }}" rel="stylesheet">
+        
 
         @yield('template_linked_css')
 
@@ -57,6 +58,7 @@
         <div id="app">
 
             @include('partials.nav')
+            
 
             <main class="py-4">
 

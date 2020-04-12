@@ -13,4 +13,10 @@ class WelcomeController extends Controller
     {
         return view('welcome');
     }
+
+    public function travel()
+    {
+        return view('pages.travel.index');
+    }
+
 }

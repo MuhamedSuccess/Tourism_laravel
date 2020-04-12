@@ -66,10 +66,12 @@ class CheckIsUserActivated
                     // Log::info('Activated user attempted to visit '.$currentRoute.'. ', [$user]);
 
                     if ($user->isAdmin()) {
+                        return redirect('dashboard');
+                    }else{
                         return redirect('home');
                     }
 
-                    return redirect('home');
+                    
                 }
 
                 if (!$user) {

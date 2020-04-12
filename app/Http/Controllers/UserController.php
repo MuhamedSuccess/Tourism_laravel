@@ -26,9 +26,14 @@ class UserController extends Controller
         $user = Auth::user();
 
         if ($user->isAdmin()) {
-            return view('pages.admin.home');
+            
+            // return view('pages.admin.home'); dashboard
+            return view('pages.admin.dashboard');
+        }else{
+            return view('pages.user.home');
+
         }
 
-        return view('pages.user.home');
+        
     }
 }
