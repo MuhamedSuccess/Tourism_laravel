@@ -2,7 +2,8 @@
 			<div class="container">
 				<div class="nav-header">
 					<a href="#" class="js-fh5co-nav-toggle fh5co-nav-toggle dark"><i></i></a>
-					<h1 id="fh5co-logo"><a href="index.html"><i class="icon-airplane"></i>Travel</a></h1>
+					<!-- <a href="{{ route('register') }}">Register</a> -->
+					<h1 id="fh5co-logo"><a href="{{ route('trip') }}"><i class="icon-airplane"></i>Travel</a></h1>
 					<!-- START #fh5co-menu-wrap -->
 					<nav id="fh5co-menu-wrap" role="navigation">
 						<ul class="sf-menu" id="fh5co-primary-menu">
@@ -22,6 +23,35 @@
 							<li><a href="car.html">Car</a></li>
 							<li><a href="blog.html">Blog</a></li>
 							<li><a href="contact.html">Contact</a></li>
+
+							<li class="nav-item dropdown">
+                <a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle user-action">
+                  
+				@if ((Auth::User()))
+				   {{ Auth::user()->name }}
+				   <img src="{{asset('admin/images/admin.jpg')}}" id="avatar" class="avatar"> 
+
+				@else
+					<img id="avatar" src="{{asset('images/anonymous.png')}}" class="avatar"> 
+
+				@endif	
+                  
+				  <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li><a href="{{ route('public.dashboardhome') }}" class="dropdown-item"><i class="fa fa-user-o"></i> Dash Board</a></li>
+                  <li><a class="nav-link {{ Request::is('profile/'.Auth::user()->name, 'profile/'.Auth::user()->name . '/edit') ? 'active' : null }}" href="{{ url('/profile/'.Auth::user()->name) }}">
+                                {!! trans('titles.profile') !!}
+                   </a></li>
+				  
+                  <li><a href="#" class="dropdown-item"><i class="fa fa-calendar-o"></i> Calendar</a></li>
+                  <li><a href="#" class="dropdown-item"><i class="fa fa-sliders"></i> Settings</a></li>
+                  <li class="divider dropdown-divider"></li>
+                  <li><a href="{{route('logout')}}" class="dropdown-item"><i class="material-icons">&#xE8AC;</i>
+                    Logout</a>
+                  </li>
+                </ul>
+              </li>
+
 						</ul>
 					</nav>
 				</div>

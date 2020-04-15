@@ -18,8 +18,9 @@ use Illuminate\Support\Facades\Route;
 // Homepage Route
 Route::group(['middleware' => ['web', 'checkblocked']], function () {
     Route::get('/', 'WelcomeController@welcome')->name('welcome');
-    Route::get('/trip', 'WelcomeController@travel')->name('travel');
+    Route::get('/trip', 'Trip\TripController@homepage')->name('trip');
     Route::get('/terms', 'TermsController@terms')->name('terms');
+    Route::get('/map', 'WelcomeController@map')->name('map');
 });
 
 // Authentication Routes
@@ -55,7 +56,8 @@ Route::group(['middleware' => ['auth', 'activated', 'activity', 'checkblocked']]
 Route::group(['middleware' => ['auth', 'activated', 'activity', 'twostep', 'checkblocked']], function () {
 
     //  Homepage Route - Redirect based on user role is in controller.
-    Route::get('/home', ['as' => 'public.dashboard',   'uses' => 'UserController@index']);
+    Route::get('/home', ['as' => 'public.dashboard',   'uses' => 'UserController@index'])->name('home');
+    Route::get('/old-home', ['as' => 'public.home',   'uses' => 'UserController@index_old']);
 
     // Show users profile - viewable by other users.
     Route::get('profile/{username}', [
@@ -134,3 +136,8 @@ Route::group(['middleware' => ['auth', 'activated', 'role:admin', 'activity', 't
 });
 
 Route::redirect('/php', '/phpinfo', 301);
+
+
+
+//trip routes
+Route::get('/trip/create', 'Trip\TripController@create')->name('trip/create');

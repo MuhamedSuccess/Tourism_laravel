@@ -100,13 +100,15 @@
     <body>
         
 
-    <div id="fh5co-wrapper">
-		<div id="fh5co-page">
-        @include('partials.header')
-        @include('partials.header-nav')
-        @yield('content')
-    </div>
-    </div>
+    @if (Auth::User())
+        <div id="fh5co-wrapper">
+            <div id="fh5co-page">
+            @include('partials.header')
+            @include('partials.header-nav')
+            @yield('content')
+        </div>
+        </div>
+    @endif
 
         {{-- Scripts --}}
         

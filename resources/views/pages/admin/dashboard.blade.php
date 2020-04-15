@@ -1,5 +1,16 @@
 @extends('layouts.admin')
 
+@php
+
+    $levelAmount = 'level';
+
+    if (Auth::User()->level() >= 2) {
+        $levelAmount = 'levels';
+
+    }
+
+@endphp
+
 @section('template_title')
     Welcome {{ Auth::user()->name }}
 @endsection
@@ -8,6 +19,9 @@
 @endsection
 
 @section('content')
+
+
+
 <div class="animated fadeIn">
                 <!-- Widgets  -->
                 <div class="row">

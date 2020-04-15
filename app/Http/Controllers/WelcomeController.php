@@ -11,12 +11,19 @@ class WelcomeController extends Controller
      */
     public function welcome()
     {
-        return view('welcome');
+        return redirect('trip');        
     }
 
     public function travel()
     {
         return view('pages.travel.index');
     }
+
+    public function map()
+    {
+        return view('pages.map.index');
+    }
+
+
 
 }

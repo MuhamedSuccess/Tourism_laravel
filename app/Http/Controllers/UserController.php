@@ -36,4 +36,24 @@ class UserController extends Controller
 
         
     }
+
+
+    public function index_old()
+    {
+        $user = Auth::user();
+
+        if ($user->isAdmin()) {
+            
+            return view('pages.admin.home'); 
+            
+        }else{
+            return view('pages.user.home');
+
+        }
+
+        
+    }
+
+
+
 }

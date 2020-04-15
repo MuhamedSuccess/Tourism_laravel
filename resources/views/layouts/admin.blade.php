@@ -75,11 +75,11 @@
             <div id="main-menu" class="main-menu collapse navbar-collapse">
                 <ul class="nav navbar-nav">
                     <li class="active">
-                        <a href="index.html"><i class="menu-icon fa fa-laptop"></i>Dashboard </a>
+                        <a href="{{route('trip')}}"><i class="menu-icon fa fa-laptop"></i>Website </a>
                     </li>
                     <li class="menu-title">UI elements</li><!-- /.menu-title -->
                     <li class="menu-item-has-children dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-cogs"></i>Components</a>
+                        <a href="" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-cogs"></i>Old Dashboard</a>
                         <ul class="sub-menu children dropdown-menu">                            <li><i class="fa fa-puzzle-piece"></i><a href="ui-buttons.html">Buttons</a></li>
                             <li><i class="fa fa-id-badge"></i><a href="ui-badges.html">Badges</a></li>
                             <li><i class="fa fa-bars"></i><a href="ui-tabs.html">Tabs</a></li>
@@ -93,13 +93,40 @@
                             <li><i class="fa fa-file-word-o"></i><a href="ui-typgraphy.html">Typography</a></li>
                         </ul>
                     </li>
+                    <a href="{{route('users')}}">User Management</a>
+                    <a class="{{ Request::is('users/create') ? 'active' : null }}" href="{{ url('/users/create') }}">
+                                {!! trans('titles.adminNewUser') !!}
+                    </a>
+
+                    <a class="dropdown-item {{ Request::is('active-users') ? 'active' : null }}" href="{{ url('/active-users') }}">
+                                {!! trans('titles.activeUsers') !!}
+                            </a>
+
+                    <a class="dropdown-item {{ Request::is('themes','themes/create') ? 'active' : null }}" href="{{ url('/themes') }}">
+                        {!! trans('titles.adminThemesList') !!}
+                    </a>            
+
+                    <a class="dropdown-item {{ Request::is('routes') ? 'active' : null }}" href="{{ url('/routes') }}">
+                        {!! trans('titles.adminRoutes') !!}
+                    </a>                
+
                     <li class="menu-item-has-children dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-table"></i>Tables</a>
+                        <a href="{{route('users')}}" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-table"></i>User Management</a>
                         <ul class="sub-menu children dropdown-menu">
                             <li><i class="fa fa-table"></i><a href="tables-basic.html">Basic Table</a></li>
                             <li><i class="fa fa-table"></i><a href="tables-data.html">Data Table</a></li>
                         </ul>
                     </li>
+
+
+                    <li class="menu-item-has-children dropdown">
+                        <a href="" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-table"></i>Trip Management</a>
+                        <ul class="sub-menu children dropdown-menu">
+                            <li><i class="fa fa-table"></i><a href="{{route('trip/create')}}">Create Trip</a></li>
+                            <li><i class="fa fa-table"></i><a href="tables-data.html">Trips</a></li>
+                        </ul>
+                    </li>
+
                     <li class="menu-item-has-children dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-th"></i>Forms</a>
                         <ul class="sub-menu children dropdown-menu">
@@ -239,17 +266,36 @@
 
                     <div class="user-area dropdown float-right">
                         <a href="#" class="dropdown-toggle active" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span>{{ Auth::user()->name }}</span>
+                            <!-- @if ((Auth::User()->profile) && Auth::user()->profile->avatar_status == 1)
+                                <img src="{{ Auth::user()->profile->avatar }}" alt="{{ Auth::user()->name }}" class="user-avatar-nav">
+                            @else
+                                <div class="user-avatar-nav"></div>
+                            @endif
+                            {{ Auth::user()->name }} -->
                             <img class="user-avatar rounded-circle" src="{{ asset('admin/images/admin.jpg') }} " alt="User Avatar">
                         </a>
 
                         <div class="user-menu dropdown-menu">
-                            <a class="nav-link" href="#"><i class="fa fa- user"></i>My Profile</a>
+                        <a class="nav-link {{ Request::is('profile/'.Auth::user()->name, 'profile/'.Auth::user()->name . '/edit') ? 'active' : null }}" href="{{ url('/profile/'.Auth::user()->name) }}">
+                                {!! trans('titles.profile') !!}
+                            </a>
+                            <!-- <a class="nav-link" href="#"><i class="fa fa- user"></i>My Profile</a> -->
 
                             <a class="nav-link" href="#"><i class="fa fa- user"></i>Notifications <span class="count">13</span></a>
 
                             <a class="nav-link" href="#"><i class="fa fa -cog"></i>Settings</a>
 
-                            <a class="nav-link" href="#"><i class="fa fa-power -off"></i>Logout</a>
+                            <a class="nav-link" href="{{ route('logout') }}"
+                               onclick="event.preventDefault();
+                                             document.getElementById('logout-form').submit();">
+                                {{ __('Logout') }}
+                            </a>
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                @csrf
+                            </form>
+
+                            <!-- <a class="nav-link" href="#"><i class="fa fa-power -off"></i>Logout</a> -->
                         </div>
                     </div>
 
